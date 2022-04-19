@@ -1,8 +1,7 @@
 
-from sanic import response
+from sanic import response, Sanic
 from models.users import Users 
 from tortoise import Tortoise
-from config.settings import DB
 
 async def bp_root(request):
     return response.json({"hello": "史豫川"})
@@ -12,6 +11,8 @@ async def get_name(request):
     return response.json({"name": user_list[0]['name']})
 
 async def get_mobile(request):
-    db = Tortoise.get_connection('default')
+    db = request.app.ctx.db   # 上下文使用
+    #db = Tortoise.get_connection('default')
     result = await db.execute_query_dict("select * from users where id=%s", [1])
-    return response.json({"name": result['name']})
+    print(result)
+    return response.json({"name": result[0]['name']})
