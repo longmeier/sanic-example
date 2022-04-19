@@ -1,0 +1,5 @@
+sanic
+django-environ
+tortoise-orm
+aiomysql
+aerich
