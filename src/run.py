@@ -10,8 +10,6 @@ app.blueprint(index_bp)
 # 注册orm连接
 register_tortoise(app, config=app.config["DB_CONFIG"])
 
-
-
 async def init_db(app, loop):
     print('sanic 服务启动后建立mysql连接')
     await Tortoise.init(config=app.config["DB_CONFIG"])
